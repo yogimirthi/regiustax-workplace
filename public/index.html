@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>RTwhat's up - RegiusTax Local Network Messenger</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/images/regiustax_logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#484392">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="RegiusTax">
+  <link rel="apple-touch-icon" href="/images/icon-192.png">
+</head>
+<body class="theme-light">
+  <div class="app-container">
+    
+    <!-- Top Decorative Banner for WhatsApp Web Style -->
+    <div class="app-top-band"></div>
+
+    <!-- Main Messenger Wrapper -->
+    <div class="messenger-box">
+      
+      <!-- ================= SIDEBAR (LEFT) ================= -->
+      <aside class="sidebar" id="sidebar">
+        
+        <!-- User Profile & Global Controls Header -->
+        <header class="sidebar-header">
+          <div class="user-header-left">
+            <div class="current-user-info" id="btn-profile-switch" title="Click to switch account or manage users">
+              <div class="avatar-circle avatar-circle-admin current-avatar" id="current-user-avatar">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                </svg>
+              </div>
+              <div class="user-meta">
+                <span class="user-name" id="current-user-name">Admin</span>
+                <div class="user-role" id="current-user-role"><span class="badge-role badge-admin">ADMIN</span> admin@regiustax.com</div>
+              </div>
+            </div>
+            <!-- Availability Status Toggle (Available ⇄ Unavailable) -->
+            <button type="button" class="btn-availability-toggle available" id="btn-availability-toggle" title="Click to toggle availability status (Available / Unavailable)">
+              <span class="availability-dot"></span>
+              <span id="availability-status-label">Available</span>
+            </button>
+          </div>
+
+          <div class="header-actions">
+            <div id="header-portal-indicator" class="portal-header-pill portal-pill-admin" style="font-size:10px; padding:2px 6px;">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+              </svg>
+              <span>Admin</span>
+            </div>
+            <button class="icon-btn btn-admin-quick" id="btn-quick-add-emp" title="Admin: Add Employee by Email" aria-label="Add Employee">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </button>
+            <button class="icon-btn" id="btn-open-backup-manager" title="Data Backup & Protection (Admin Only • Daily 12:00 PM • Laptop Protection)" aria-label="Backup Manager" style="display:none;">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor">
+                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+              </svg>
+            </button>
+            <button class="icon-btn" id="btn-open-work-tracker" title="Work Assistance Tracker (WhatsApp + Tasks)" aria-label="Work Assistance Tracker" style="position:relative;">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor">
+                <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+              </svg>
+              <span class="pulse-dot" id="tracker-header-dot" style="background:#ea4335; display:none;"></span>
+            </button>
+            <button class="icon-btn" id="btn-new-chat" title="New Chat or Department Group" aria-label="New Chat">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+            </button>
+            <button class="icon-btn btn-desktop-only" id="btn-lan-info" title="Office LAN & QR Code for Mobile" aria-label="LAN Info">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M4 4h6v6H4V4zm2 2v2h2V6H6zm8-2h6v6h-6V4zm2 2v2h2V6h-2zM4 14h6v6H4v-6zm2 2v2h2v-2H6zm10-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm2 2h2v2h-2v-2zm2-2h2v2h-2v-2zm0 4h2v2h-2v-2zm-4 0h2v2h-2v-2z"/>
+              </svg>
+              <span class="pulse-dot"></span>
+            </button>
+            <button class="icon-btn btn-desktop-only" id="btn-admin-outside-links" title="Outside Links (Admin Only)" aria-label="Outside Links" style="display:none;">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+            </button>
+            <button class="icon-btn btn-desktop-only" id="btn-theme-toggle" title="Toggle Dark / Light Mode" aria-label="Theme">
+              <svg id="theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+              </svg>
+            </button>
+            <button class="icon-btn btn-desktop-only" id="btn-open-change-password" title="Change My Password" aria-label="Change Password">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor">
+                <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+              </svg>
+            </button>
+            <button class="icon-btn btn-desktop-only" id="btn-auth-logout" title="Lock / Sign Out (Require Password)" aria-label="Lock / Sign Out">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+              </svg>
+            </button>
+            <a href="/" class="icon-btn btn-desktop-only" id="btn-portal-gateway-nav" title="Return to Portals Gateway (Admin / Employee Selection)" aria-label="Portals Gateway" style="text-decoration:none;">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor">
+                <path d="M19 19V5c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v14H3v2h18v-2h-2zm-4-8c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+              </svg>
+            </a>
+
+            <!-- Mobile Menu Trigger Button (3 Dots ⋮) -->
+            <button type="button" class="icon-btn btn-mobile-menu-trigger" id="btn-mobile-more-menu" title="More Options" aria-label="More Options">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <circle cx="12" cy="5" r="2"/>
+                <circle cx="12" cy="12" r="2"/>
+                <circle cx="12" cy="19" r="2"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile Floating Dropdown Menu -->
+          <div class="mobile-more-dropdown" id="mobile-more-dropdown" style="display:none;">
+            <div class="mobile-dropdown-item" id="mobile-item-password">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+              </svg>
+              <span>Change Password</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-theme">
+              <span id="mobile-theme-icon" style="display:inline-flex; align-items:center;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                </svg>
+              </span>
+              <span id="mobile-theme-label">Dark Mode</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-lan">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+              </svg>
+              <span>Office LAN & QR Code</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-backup" style="display:none;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+              </svg>
+              <span>Backup & Data Protection</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-add-emp" style="display:none;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <span>Add Employee</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-outside-links" style="display:none;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+              <span>Outside Client Links</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-profiles">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <span>Switch Account / Profiles</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-logout" style="color:#ea4335;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#ea4335">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+              </svg>
+              <span>Lock / Sign Out</span>
+            </div>
+            <div class="mobile-dropdown-item" id="mobile-item-gateway">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M19 19V5c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v14H3v2h18v-2h-2zm-4-8c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+              </svg>
+              <span>Portals Gateway</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Company Security Notice Pill with RegiusTax Logo -->
+        <div class="network-badge-banner">
+          <div style="background: white; padding: 2px 7px; border-radius: 6px; display: flex; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.15); flex-shrink:0;">
+            <img src="/images/regiustax_logo.png" alt="RegiusTax Logo" style="height: 20px; width: auto; object-fit: contain;">
+          </div>
+          <div class="badge-text">
+            <span id="portal-badge-title">RegiusTax Local Intranet</span>
+            <small id="network-ip-display">LAN: Detecting...</small>
+          </div>
+          <div class="banner-quick-actions" style="display:flex; gap:6px; align-items:center;">
+            <button class="badge-action-btn" id="btn-banner-work-tracker" title="Open WhatsApp + Work Assistance Tracker" style="background:var(--rt-indigo); color:white; border-color:var(--rt-indigo); font-weight:700; display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+              </svg>
+              <span>Tracker</span>
+            </button>
+            <button class="badge-action-btn" id="btn-banner-backup" title="Admin Data Backup & Protection (Daily 12:00 PM)" style="background:var(--rt-emerald); color:white; border-color:var(--rt-emerald); font-weight:700; display:none; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+              </svg>
+              <span>Backup</span>
+            </button>
+            <a href="/" class="badge-portal-switch" title="Switch Portal (Admin / Employee Gateway)" style="display:inline-flex; align-items:center; gap:4px;">
+              <span>Portals</span>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                <path d="M19 19V5c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v14H3v2h18v-2h-2zm-4-8c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+              </svg>
+            </a>
+            <button class="badge-action-btn btn-desktop-only" id="btn-copy-ip">Copy IP</button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Area -->
+        <div class="search-container">
+          <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search chats, messages or tax files..." autocomplete="off">
+            <button class="clear-search-btn" id="clear-search" style="display:none;">&times;</button>
+          </div>
+          <div class="filter-tabs">
+            <button class="tab-btn active" data-filter="all">All</button>
+            <button class="tab-btn" data-filter="channels">Tax Channels</button>
+            <button class="tab-btn" data-filter="direct">Colleagues</button>
+          </div>
+        </div>
+
+        <!-- Chat / Conversation List -->
+        <div class="chat-list" id="chat-list">
+          <div class="loading-chats">Loading RegiusTax conversations...</div>
+        </div>
+
+      </aside>
+
+      <!-- ================= MAIN CHAT AREA (RIGHT) ================= -->
+      <main class="chat-area" id="chat-area">
+        
+        <!-- Welcome Screen (When no chat is selected) -->
+        <div class="welcome-screen" id="welcome-screen">
+          <div class="welcome-card">
+            <div class="welcome-brand">
+              <img src="/images/regiustax_logo.png" alt="RegiusTax Logo" class="welcome-logo-img">
+              <div class="brand-title-group">
+                <h1>RTwhat's up</h1>
+                <p class="brand-subtitle">RegiusTax Private Intranet Collaboration</p>
+              </div>
+            </div>
+            
+            <div class="welcome-features">
+              <div class="feature-item">
+                <span class="feat-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </span>
+                <div class="feat-desc">
+                  <strong>Local Office Network Only</strong>
+                  <p>No data leaves your office Wi-Fi. 100% confidential and safe for sensitive tax filings.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <span class="feat-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                </span>
+                <div class="feat-desc">
+                  <strong>Tax Documents & Spreadsheets</strong>
+                  <p>Send client balance sheets, GST Excel files, Form 16 PDFs, and invoices instantly.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <span class="feat-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                </span>
+                <div class="feat-desc">
+                  <strong>Direct Voice Notes & Group Rooms</strong>
+                  <p>Record quick audio briefs for partners and discuss tax appeals in dedicated channels.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="lan-share-box">
+              <div class="lan-share-header">
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+                  <span>Connect your Mobile or Laptop</span>
+                </span>
+                <button class="btn-sm btn-primary" id="btn-show-qr-welcome">Scan QR Code</button>
+              </div>
+              <div class="lan-url-tag" id="welcome-network-url">http://localhost:3000</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Conversation Container (Hidden until chat opened) -->
+        <div class="active-conversation" id="active-conversation" style="display: none;">
+          
+          <!-- Chat Header -->
+          <header class="chat-header">
+            <button class="icon-btn back-btn" id="btn-back-to-list" title="Back to chats">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </button>
+            
+            <div class="chat-header-info" id="chat-header-info">
+              <div class="avatar-circle avatar-circle-group" id="chat-header-avatar">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                </svg>
+              </div>
+              <div class="chat-header-text">
+                <div class="chat-title" id="chat-header-title">GST & Indirect Tax</div>
+                <div class="chat-status" id="chat-header-status">Priya, Rajesh, Amit, Sneha</div>
+              </div>
+            </div>
+
+            <div class="chat-header-actions">
+              <button class="icon-btn btn-delete-channel" id="btn-delete-active-channel" title="Admin: Delete this Channel" style="display:none; color:#ea4335;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+              </button>
+              <button class="icon-btn" id="btn-search-in-chat" title="Search in this conversation">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+              </button>
+              <button class="icon-btn" id="btn-members-info" title="Channel Info & Members">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+              </button>
+            </div>
+          </header>
+
+          <!-- In-Chat Search Bar (Collapsible) -->
+          <div class="inchat-search-bar" id="inchat-search-bar" style="display:none;">
+            <input type="text" id="inchat-search-input" placeholder="Find text in this chat...">
+            <button class="btn-text-close" id="btn-close-inchat-search">Done</button>
+          </div>
+
+          <!-- Messages Container -->
+          <div class="messages-container" id="messages-container">
+            <!-- Messages rendered dynamically here -->
+          </div>
+
+          <!-- Typing Notification Indicator -->
+          <div class="typing-indicator-bar" id="typing-indicator-bar" style="display:none;">
+            <span class="typing-dots"><span></span><span></span><span></span></span>
+            <span class="typing-text" id="typing-text">Priya is typing...</span>
+          </div>
+
+          <!-- Audio Voice Recording Bar (Appears when recording) -->
+          <div class="voice-recorder-bar" id="voice-recorder-bar" style="display:none;">
+            <div class="recording-pulse"></div>
+            <span class="record-timer" id="record-timer">00:00</span>
+            <span class="record-label">Recording Voice Note...</span>
+            <div class="recorder-actions">
+              <button class="btn-cancel-rec" id="btn-cancel-voice" title="Cancel recording">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+              </button>
+              <button class="btn-send-rec" id="btn-send-voice" title="Send voice note">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Reply Preview Bar (WhatsApp-style quoted reply draft) -->
+          <div class="reply-preview-bar" id="reply-preview-bar" style="display:none;">
+            <div class="reply-preview-content">
+              <div class="reply-preview-border"></div>
+              <div class="reply-preview-info">
+                <div class="reply-preview-sender" id="reply-preview-sender">Replying to...</div>
+                <div class="reply-preview-text" id="reply-preview-text">Message preview</div>
+              </div>
+            </div>
+            <button class="btn-cancel-reply" id="btn-cancel-reply" title="Cancel reply" aria-label="Cancel reply">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Message Input Bar -->
+          <footer class="chat-input-bar">
+            <!-- Emoji Toggle -->
+            <button class="icon-btn" id="btn-emoji-toggle" title="Insert Emoji" aria-label="Emoji">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+              </svg>
+            </button>
+
+            <!-- Attachment Trigger -->
+            <div class="attachment-wrapper">
+              <button class="icon-btn" id="btn-attachment-toggle" title="Attach Document / Media" aria-label="Attach">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                  <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5a2.5 2.5 0 0 0 5 0V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+                </svg>
+              </button>
+              
+              <!-- Attachment Popup Menu -->
+              <div class="attachment-menu" id="attachment-menu" style="display: none;">
+                <label class="attachment-item">
+                  <input type="file" id="file-input-doc" accept=".pdf,.xlsx,.xls,.docx,.doc,.txt,.zip,.csv" style="display:none;">
+                  <span class="attach-icon doc-color" style="display:inline-flex; align-items:center; justify-content:center;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                      <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                  </span>
+                  <span>Document / Tax File</span>
+                </label>
+                <label class="attachment-item">
+                  <input type="file" id="file-input-img" accept="image/*" style="display:none;">
+                  <span class="attach-icon img-color" style="display:inline-flex; align-items:center; justify-content:center;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                      <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                    </svg>
+                  </span>
+                  <span>Photos & Invoices</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Emoji Picker Panel -->
+            <div class="emoji-picker-panel" id="emoji-picker-panel" style="display: none;">
+              <div class="emoji-category-header">
+                <span>Tax & Office Emojis</span>
+              </div>
+              <div class="emoji-grid">
+                <span>📊</span><span>📑</span><span>💼</span><span>💰</span><span>📈</span>
+                <span>📋</span><span>🧾</span><span>🏦</span><span>✒️</span><span>📂</span>
+                <span>✅</span><span>🤝</span><span>👍</span><span>🙏</span><span>👏</span>
+                <span>🔥</span><span>💡</span><span>☕</span><span>🚀</span><span>💯</span>
+                <span>😀</span><span>😊</span><span>😎</span><span>🤔</span><span>🙌</span>
+              </div>
+            </div>
+
+            <!-- Message Text Input -->
+            <div class="input-field-wrapper">
+              <textarea id="message-text-input" placeholder="Type a message... (Shift+Enter for new line)" rows="1"></textarea>
+            </div>
+
+            <!-- Voice Note or Send Button -->
+            <button class="icon-btn btn-send-mic" id="btn-send-message" title="Send Message" aria-label="Send">
+              <svg id="icon-send" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+            </button>
+            <button class="icon-btn btn-mic" id="btn-mic-start" title="Record Voice Note" aria-label="Voice Note">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+              </svg>
+            </button>
+          </footer>
+
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. LAN & Mobile QR Code Modal -->
+  <div class="modal-overlay" id="modal-lan" style="display: none;">
+    <div class="modal-content lan-modal">
+      <div class="modal-header" style="display:flex; align-items:center; justify-content:space-between;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="background:white; padding:2px 6px; border-radius:6px; display:flex; align-items:center; border:1px solid var(--border-color);">
+            <img src="/images/regiustax_logo.png" alt="RegiusTax" style="height:20px; width:auto; object-fit:contain;">
+          </div>
+          <h3 style="margin:0; font-size:16px;">Connect Mobile & Colleagues</h3>
+        </div>
+        <button class="btn-close-modal" id="btn-close-lan">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-instruction">
+          Any staff member or mobile phone connected to the office Wi-Fi can open RTwhat's up instantly:
+        </p>
+        
+        <div class="qr-preview-box">
+          <img id="modal-qr-image" src="" alt="LAN QR Code">
+          <div class="qr-helper-text">Point phone camera to join</div>
+        </div>
+
+        <div class="lan-address-box">
+          <label>Office Intranet URL:</label>
+          <div class="input-with-button">
+            <input type="text" id="modal-lan-url" readonly>
+            <button class="btn-primary" id="btn-modal-copy-ip">Copy Link</button>
+          </div>
+        </div>
+
+        <div class="lan-tips">
+          <div class="tip-item"><span style="display:inline-flex; align-items:center; color:var(--rt-indigo); margin-right:6px; vertical-align:text-bottom;"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></span><strong>Zero Setup:</strong> Open in Chrome, Edge, or Safari on any device.</div>
+          <div class="tip-item"><span style="display:inline-flex; align-items:center; color:var(--rt-emerald); margin-right:6px; vertical-align:text-bottom;"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></span><strong>100% Secure:</strong> Operates strictly within RegiusTax premises.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Account Switcher & Admin Employee Manager Modal -->
+  <div class="modal-overlay" id="modal-profiles" style="display: none;">
+    <div class="modal-content profiles-modal">
+      <div class="modal-header" style="display:flex; align-items:center; justify-content:space-between;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="background:white; padding:2px 8px; border-radius:6px; display:flex; align-items:center; border:1px solid var(--border-color);">
+            <img src="/images/regiustax_logo.png" alt="RegiusTax" style="height:22px; width:auto; object-fit:contain;">
+          </div>
+          <h3 style="margin:0; font-size:16px;">RegiusTax Accounts & Admin</h3>
+        </div>
+        <button class="btn-close-modal" id="btn-close-profiles">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tabs">
+          <button class="tab-pill active" id="tab-switch-acc">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:middle; margin-right:4px;">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>Accounts
+          </button>
+          <button class="tab-pill" id="tab-change-pass">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:middle; margin-right:4px;">
+              <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+            </svg>Change Password
+          </button>
+          <button class="tab-pill" id="tab-login-email">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:middle; margin-right:4px;">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>Login by Email
+          </button>
+          <button class="tab-pill" id="tab-admin-add-emp">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:middle; margin-right:4px;">
+              <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>Add Employee
+          </button>
+          <button class="tab-pill" id="tab-admin-depts">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:middle; margin-right:4px;">
+              <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+            </svg>Departments
+          </button>
+          <button class="tab-pill" id="tab-admin-outside-links">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:middle; margin-right:4px;">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>Outside Links
+          </button>
+        </div>
+
+        <!-- Panel 1: Switch Account -->
+        <div class="tab-panel" id="panel-switch-acc">
+          <p class="modal-instruction">Select an authorized account (Levels: Admin & Employee):</p>
+          <div class="staff-grid" id="staff-grid-list">
+            <!-- Populated dynamically with Admin and Employee cards -->
+          </div>
+        </div>
+
+        <!-- Panel: Change Password (Both Admin & Employee) -->
+        <div class="tab-panel" id="panel-change-pass" style="display:none;">
+          <p class="modal-instruction">Change your login password. Required next time you sign in:</p>
+          <form id="form-profiles-change-pass" class="add-staff-form">
+            <div class="form-group">
+              <label>Current Password <span style="color:#ea4335;">*</span></label>
+              <input type="password" id="profiles-change-current-pass" placeholder="Enter current password" required>
+            </div>
+            <div class="form-group">
+              <label>New Password <span style="color:#ea4335;">*</span></label>
+              <input type="password" id="profiles-change-new-pass" placeholder="Enter new password (min 3 chars)" minlength="3" required>
+            </div>
+            <div class="form-group">
+              <label>Confirm New Password <span style="color:#ea4335;">*</span></label>
+              <input type="password" id="profiles-change-confirm-pass" placeholder="Confirm new password" minlength="3" required>
+            </div>
+            <div id="profiles-change-pass-error" style="color:#ea4335; font-size:12.5px; display:none; margin-bottom:8px;"></div>
+            <div id="profiles-change-pass-success" style="color:#0b6e4f; font-size:12.5px; display:none; margin-bottom:8px;"></div>
+            <button type="submit" class="btn-primary btn-block">Update My Password</button>
+          </form>
+        </div>
+
+        <!-- Panel 2: Login by Email -->
+        <div class="tab-panel" id="panel-login-email" style="display:none;">
+          <p class="modal-instruction">Enter your registered company email and password to sign in:</p>
+          <form id="form-login-email" class="add-staff-form">
+            <div class="form-group">
+              <label>Company Email <span style="color:#ea4335;">*</span></label>
+              <input type="email" id="input-login-email" placeholder="e.g. employee@regiustax.com or admin@regiustax.com" required>
+            </div>
+            <div class="form-group">
+              <label>Password <span style="color:#ea4335;">*</span></label>
+              <input type="password" id="input-login-password" placeholder="Enter password" required>
+            </div>
+            <div id="login-email-error" style="color:#ea4335; font-size:12.5px; display:none; margin-bottom:8px;"></div>
+            <button type="submit" class="btn-primary btn-block">Sign In</button>
+          </form>
+        </div>
+
+        <!-- Panel 3: Admin Add Employee by Email & Department -->
+        <div class="tab-panel" id="panel-admin-add-emp" style="display:none;">
+          <div id="admin-add-restricted-notice" style="display:none; padding:12px; background:#fff3cd; color:#856404; border-radius:6px; font-size:13px; margin-bottom:12px;">
+            ⚠️ Only <strong>Admin</strong> can add new employees. Please switch to the Admin account first.
+          </div>
+          <form id="form-admin-add-employee" class="add-staff-form">
+            <p class="modal-instruction">Admin privilege: Register a new employee by email, assign their department, and set their initial password.</p>
+            <div class="form-group">
+              <label>Employee Email <span style="color:#ea4335;">*</span></label>
+              <input type="email" id="new-emp-email" placeholder="e.g. employee1@regiustax.com" required>
+            </div>
+            <div class="form-group">
+              <label>Initial Employee Password (Created by Admin) <span style="color:#ea4335;">*</span></label>
+              <input type="password" id="new-emp-password" placeholder="Create password for employee (e.g. Pass123!)" required>
+            </div>
+            <div class="form-group">
+              <label>Employee Name</label>
+              <input type="text" id="new-emp-name" placeholder="e.g. Tax Associate (optional)">
+            </div>
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <label style="margin:0;">Department <span style="color:#ea4335;">*</span></label>
+                <button type="button" class="btn-link" id="btn-toggle-inline-dept" style="background:none; border:none; color:var(--rt-emerald); font-size:12px; cursor:pointer; font-weight:600;">+ Add Other Department</button>
+              </div>
+              <select id="new-emp-department" class="custom-select" style="width:100%; padding:9px 12px; border-radius:6px; border:1px solid var(--border-color); background:var(--panel-bg); color:var(--text-primary); font-size:13px;" required>
+                <!-- Populated dynamically with Calling Team, Preparation Team, Review Team, etc. -->
+              </select>
+            </div>
+
+            <!-- Inline Add Other Department (Admin Only) -->
+            <div class="form-group" id="inline-dept-box" style="display:none; padding:10px; background:var(--panel-header-bg); border-radius:8px; border:1px dashed var(--rt-emerald);">
+              <label style="font-size:12px; font-weight:600; margin-bottom:4px; display:block;">New Department Name (Admin):</label>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="inline-new-dept-name" placeholder="e.g. Audit Team, IT Support, GST..." style="flex:1;">
+                <button type="button" class="btn-primary" id="btn-save-inline-dept" style="white-space:nowrap; padding:6px 12px; font-size:12px;">Add</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Level</label>
+              <input type="text" value="Level 2: Employee" readonly style="background:var(--panel-bg); opacity:0.8;">
+            </div>
+            <div id="admin-add-error" style="color:#ea4335; font-size:12.5px; display:none; margin-bottom:8px;"></div>
+            <div id="admin-add-success" style="color:#0b6e4f; font-size:12.5px; display:none; margin-bottom:8px;"></div>
+            <button type="submit" class="btn-primary btn-block" id="btn-submit-add-emp">Add Employee & Password</button>
+          </form>
+        </div>
+
+        <!-- Panel 4: Admin Manage Departments -->
+        <div class="tab-panel" id="panel-admin-depts" style="display:none;">
+          <div id="admin-dept-restricted-notice" style="display:none; padding:12px; background:#fff3cd; color:#856404; border-radius:6px; font-size:13px; margin-bottom:12px;">
+            ⚠️ Only <strong>Admin</strong> can add and manage departments.
+          </div>
+          <div id="admin-dept-content">
+            <p class="modal-instruction">Company Departments (Admin can create other departments):</p>
+            <div id="departments-list" style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
+              <!-- Populated dynamically -->
+            </div>
+
+            <form id="form-create-department" class="add-staff-form" style="border-top:1px solid var(--border-color); padding-top:14px;">
+              <h4 style="font-size:13.5px; margin-bottom:8px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                <span>Add Other Department</span>
+              </h4>
+              <div class="form-group">
+                <label>Department Name <span style="color:#ea4335;">*</span></label>
+                <div style="display:flex; gap:8px;">
+                  <input type="text" id="input-new-dept-tab" placeholder="e.g. Audit Team, GST Litigation, IT..." required style="flex:1;">
+                  <button type="submit" class="btn-primary" style="white-space:nowrap; padding:8px 16px;">Create</button>
+                </div>
+              </div>
+              <div id="admin-dept-error" style="color:#ea4335; font-size:12.5px; display:none; margin-top:4px;"></div>
+              <div id="admin-dept-success" style="color:#0b6e4f; font-size:12.5px; display:none; margin-top:4px;"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Panel 5: Admin Outside Links (Option 1: Outside Clients, Option 2: Outside Employees) -->
+        <div class="tab-panel" id="panel-admin-outside-links" style="display:none;">
+          <div id="admin-links-restricted-notice" style="display:none; padding:12px; background:#fff3cd; color:#856404; border-radius:6px; font-size:13px; margin-bottom:12px;">
+            ⚠️ Only <strong>Admin</strong> can access and share outside links.
+          </div>
+
+          <div id="admin-links-content">
+            <p class="modal-instruction" style="margin-bottom:14px;">Admin controls: Share links with outside people (Clients or Remote Staff).</p>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <!-- OPTION 1: OUTSIDE CLIENTS -->
+              <div class="outside-link-card" style="background:var(--panel-header-bg); border:1px solid var(--border-color); border-left:4px solid #00a884; border-radius:8px; padding:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                  <div>
+                    <div style="font-weight:700; font-size:14px; color:var(--text-primary); display:flex; align-items:center; gap:6px;">
+                      <span>📱 Option 1: Outside Client Chat Link</span>
+                      <span class="badge-role" style="background:#00a884; color:white;">FOR CLIENTS</span>
+                    </div>
+                    <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+                      Send this link to outside clients so they can text your <strong>Calling Team</strong> directly from their phone/browser without needing an account.
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex; gap:8px; align-items:center; margin-top:10px;">
+                  <input type="text" id="outside-client-url-input" readonly style="flex:1; padding:8px 12px; font-family:monospace; font-size:12.5px; background:var(--panel-bg); border:1px solid var(--border-color); border-radius:6px; color:var(--text-primary);">
+                  <button type="button" class="btn-primary" id="btn-copy-client-link" style="padding:8px 14px; font-size:12.5px; white-space:nowrap;">📋 Copy Link</button>
+                  <a id="btn-wa-client-link" target="_blank" style="text-decoration:none; padding:8px 14px; font-size:12.5px; white-space:nowrap; background:#25d366; color:white; border-radius:6px; font-weight:600; display:inline-flex; align-items:center; gap:4px;">📲 Send via WhatsApp</a>
+                </div>
+
+                <div style="margin-top:12px; display:flex; align-items:center; gap:12px;">
+                  <img id="outside-client-qr-img" src="" alt="Client QR Code" style="width:70px; height:70px; border-radius:6px; border:1px solid var(--border-color); background:white;">
+                  <div style="font-size:11.5px; color:var(--text-secondary);">
+                    Clients can also scan this QR code on their smartphone to start a live inquiry with your Calling Team immediately.
+                  </div>
+                </div>
+              </div>
+
+              <!-- OPTION 2: OUTSIDE EMPLOYEES -->
+              <div class="outside-link-card" style="background:var(--panel-header-bg); border:1px solid var(--border-color); border-left:4px solid #007aff; border-radius:8px; padding:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                  <div>
+                    <div style="font-weight:700; font-size:14px; color:var(--text-primary); display:flex; align-items:center; gap:6px;">
+                      <span>💼 Option 2: Outside Employee Remote Link</span>
+                      <span class="badge-role" style="background:#007aff; color:white;">FOR REMOTE STAFF</span>
+                    </div>
+                    <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+                      Send this link to employees working from home or outside the office Wi-Fi so they can log into RTwhat's up with their company email.
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex; gap:8px; align-items:center; margin-top:10px;">
+                  <input type="text" id="outside-emp-url-input" readonly style="flex:1; padding:8px 12px; font-family:monospace; font-size:12.5px; background:var(--panel-bg); border:1px solid var(--border-color); border-radius:6px; color:var(--text-primary);">
+                  <button type="button" class="btn-primary" id="btn-copy-emp-link" style="padding:8px 14px; font-size:12.5px; white-space:nowrap;">📋 Copy Link</button>
+                  <a id="btn-wa-emp-link" target="_blank" style="text-decoration:none; padding:8px 14px; font-size:12.5px; white-space:nowrap; background:#25d366; color:white; border-radius:6px; font-weight:600; display:inline-flex; align-items:center; gap:4px;">📲 Send via WhatsApp</a>
+                </div>
+
+                <!-- Custom Public Domain / Cloudflare Tunnel Configuration -->
+                <div style="margin-top:14px; padding-top:12px; border-top:1px dashed var(--border-color);">
+                  <label style="font-size:12px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">
+                    🌐 Configure Public Internet URL (Cloudflare Tunnel, ngrok, or Domain):
+                  </label>
+                  <div style="display:flex; gap:8px;">
+                    <input type="text" id="custom-public-url-input" placeholder="e.g. https://chat.regiustax.com or https://xxxx.trycloudflare.com" style="flex:1; padding:8px 12px; font-size:12.5px; background:var(--panel-bg); border:1px solid var(--border-color); border-radius:6px; color:var(--text-primary);">
+                    <button type="button" class="btn-primary" id="btn-save-public-url" style="padding:8px 14px; font-size:12px; white-space:nowrap;">Save Domain</button>
+                  </div>
+                  <div id="save-public-url-feedback" style="font-size:11.5px; color:#0b6e4f; margin-top:4px; display:none;"></div>
+                  <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">
+                    Tip: Setting a public HTTPS URL will automatically update both Option 1 (Client) and Option 2 (Staff) links.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. New Chat / Group Channel Modal -->
+  <div class="modal-overlay" id="modal-new-chat" style="display: none;">
+    <div class="modal-content new-chat-modal">
+      <div class="modal-header">
+        <h3>💬 Start a New Conversation</h3>
+        <button class="btn-close-modal" id="btn-close-new-chat">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tabs">
+          <button class="tab-pill active" id="tab-direct-chat">Direct Message</button>
+          <button class="tab-pill" id="tab-group-chat">New Department Channel</button>
+        </div>
+
+        <!-- Tab 1: Start 1-on-1 -->
+        <div class="tab-panel" id="panel-direct-chat">
+          <p class="modal-instruction">Select a colleague to start private 1-on-1 messaging:</p>
+          <div class="colleagues-selection-list" id="colleagues-selection-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Tab 2: Create Department Channel (Admin Only) -->
+        <div class="tab-panel" id="panel-group-chat" style="display: none;">
+          <div id="admin-group-restricted-notice" style="display:none; padding:12px; background:#fff3cd; color:#856404; border-radius:6px; font-size:13px; margin-bottom:12px;">
+            ⚠️ Only <strong>Admin</strong> can create channels and divide employees into groups.
+          </div>
+          <form id="form-create-group">
+            <div class="form-group">
+              <label>Channel / Group Name <span style="color:#ea4335;">*</span></label>
+              <input type="text" id="group-name-input" placeholder="e.g. GST & Tax Audit Team" required>
+            </div>
+            <div class="form-group">
+              <label>Description / Tax Scope</label>
+              <input type="text" id="group-desc-input" placeholder="e.g. Monthly Form GSTR-1, 3B & 9C audits">
+            </div>
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <label style="margin:0; font-weight:600; font-size:13px;">Divide / Assign Employees into this Group:</label>
+                <div style="font-size:12px;">
+                  <button type="button" id="btn-group-select-all" class="btn-link" style="background:none; border:none; color:var(--rt-emerald); cursor:pointer; padding:0 4px; font-weight:600;">Select All</button> | 
+                  <button type="button" id="btn-group-deselect-all" class="btn-link" style="background:none; border:none; color:var(--text-muted); cursor:pointer; padding:0 4px;">Deselect All</button>
+                </div>
+              </div>
+              <div class="employee-assignment-box" id="group-members-checkbox-list">
+                <!-- Checkboxes for employees -->
+              </div>
+            </div>
+            <button type="submit" class="btn-primary btn-block">Create Channel & Divide Employees</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Media / Document Lightbox Preview Modal -->
+  <div class="modal-overlay" id="modal-lightbox" style="display: none;">
+    <div class="lightbox-container">
+      <button class="btn-lightbox-close" id="btn-close-lightbox">&times;</button>
+      <div class="lightbox-content" id="lightbox-content">
+        <img id="lightbox-image" src="" alt="Enlarged tax document / invoice">
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Channel Details / Members Drawer Modal -->
+  <div class="modal-overlay" id="modal-channel-details" style="display: none;">
+    <div class="modal-content channel-details-modal">
+      <div class="modal-header">
+        <h3 id="channel-details-name">Channel Details</h3>
+        <button class="btn-close-modal" id="btn-close-details">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="channel-details-desc" id="channel-details-desc"></p>
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; margin-bottom:8px;">
+          <h4 style="margin:0; font-size:14px; font-weight:600;">Channel Members (<span id="channel-member-count">0</span>)</h4>
+        </div>
+        <div class="members-list" id="channel-details-members"></div>
+
+        <!-- Admin: Add Employee to this Group -->
+        <div id="channel-admin-add-member-box" style="display:none; margin-top:18px; padding-top:14px; border-top:1px solid var(--border-color);">
+          <label style="font-size:13px; font-weight:600; display:block; margin-bottom:6px;">Assign Another Employee to this Group:</label>
+          <div style="display:flex; gap:8px;">
+            <select id="select-add-member-employee" class="custom-select" style="flex:1; padding:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--panel-bg); color:var(--text-primary); font-size:13px;">
+              <!-- Dynamically populated -->
+            </select>
+            <button type="button" class="btn-primary" id="btn-add-member-to-group" style="white-space:nowrap; padding:8px 14px; font-size:13px;">+ Add</button>
+          </div>
+        </div>
+
+        <!-- Admin: Delete Channel Zone -->
+        <div id="channel-admin-danger-box" style="display:none; margin-top:24px; padding-top:16px; border-top:1px solid var(--border-color);">
+          <button type="button" class="btn-danger-block" id="btn-modal-delete-channel" style="width:100%; padding:10px; background:rgba(234, 67, 53, 0.1); color:#ea4335; border:1px solid rgba(234, 67, 53, 0.3); border-radius:8px; font-weight:600; cursor:pointer; transition:all 0.2s;">
+            🗑️ Delete this Channel (Admin)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Dedicated Authentication Gate Modal (Password Required) -->
+  <div class="modal-overlay" id="modal-auth-login" style="display: none; z-index: 9999; background: rgba(11, 20, 26, 0.88);">
+    <div class="modal-content auth-login-modal" style="max-width: 440px; box-shadow: 0 16px 48px rgba(0,0,0,0.45); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+      <div class="modal-header" style="background: var(--panel-header-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="background: white; padding: 3px 8px; border-radius: 6px; display: flex; align-items: center; border: 1px solid var(--border-color);">
+            <img src="/images/regiustax_logo.png" alt="RegiusTax Logo" style="height: 22px; width: auto; object-fit: contain;">
+          </div>
+          <div>
+            <h3 id="auth-portal-title" style="margin: 0; font-size: 16px; color: var(--text-primary); font-weight: 700;">RegiusTax Portal Sign In</h3>
+            <span id="auth-portal-badge" style="font-size: 11px; color: var(--rt-emerald); font-weight: 600;">🔒 Password Protected Workspace</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 24px;">
+        <p class="modal-instruction" id="auth-portal-instruction" style="margin-bottom: 18px; font-size: 13.5px; color: var(--text-secondary);">
+          Please sign in with your authorized company email and password:
+        </p>
+
+        <form id="form-auth-login" class="add-staff-form">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Company Email <span style="color:#ea4335;">*</span></label>
+            <input type="email" id="auth-input-email" placeholder="e.g. employee@regiustax.com or admin@regiustax.com" required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; background: var(--panel-bg); color: var(--text-primary);">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+              <label style="font-size: 13px; font-weight: 600; margin:0;">Password <span style="color:#ea4335;">*</span></label>
+              <button type="button" id="btn-toggle-auth-password" class="btn-link" style="background:none; border:none; color:var(--rt-emerald); font-size:12px; cursor:pointer; font-weight:600;">Show</button>
+            </div>
+            <input type="password" id="auth-input-password" placeholder="Enter your password" required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; background: var(--panel-bg); color: var(--text-primary);">
+          </div>
+
+          <div id="auth-login-error" style="color: #ea4335; font-size: 13px; display: none; margin-bottom: 12px; padding: 8px 12px; background: rgba(234,67,53,0.1); border-radius: 6px; border: 1px solid rgba(234,67,53,0.2);"></div>
+
+          <button type="submit" class="btn-primary btn-block" id="btn-auth-signin" style="width: 100%; padding: 12px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span>🔐</span> Sign In
+          </button>
+        </form>
+
+        <div class="auth-helper-box" style="margin-top: 18px; padding: 12px; background: var(--panel-header-bg); border-radius: 8px; border: 1px solid var(--border-color); font-size: 12px; color: var(--text-secondary);">
+          <div style="font-weight: 600; margin-bottom: 4px; color: var(--text-primary);">Default Initial Logins:</div>
+          <div id="auth-hint-text" style="line-height: 1.5;">
+            🛡️ <strong>Admin:</strong> <code>admin@regiustax.com</code> / <code>admin123</code><br>
+            💼 <strong>Employees:</strong> <code>priya@regiustax.com</code> / <code>emp123</code>
+          </div>
+          <div style="margin-top: 6px; font-size: 11px; opacity: 0.85;">
+            * Initial employee passwords are set by the Admin when registering staff.
+          </div>
+        </div>
+
+        <div style="margin-top: 16px; text-align: center;">
+          <a href="/" style="font-size: 12.5px; color: var(--rt-emerald); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 19V5c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v14H3v2h18v-2h-2zm-4-8c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+            </svg>
+            <span>Back to Portals Gateway</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Dedicated Change Password Modal (Admin & Employee) -->
+  <div class="modal-overlay" id="modal-change-password" style="display: none; z-index: 10000; background: rgba(11, 20, 26, 0.78);">
+    <div class="modal-content change-password-modal" style="max-width: 440px; box-shadow: 0 16px 48px rgba(0,0,0,0.35); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+      <div class="modal-header" style="background: var(--panel-header-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--rt-emerald)">
+            <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+          </svg>
+          <div>
+            <h3 style="margin: 0; font-size: 16px; color: var(--text-primary); font-weight: 700;">Change My Password</h3>
+            <span id="change-pass-user-label" style="font-size: 11px; color: var(--rt-emerald); font-weight: 600;">Account Settings</span>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btn-close-change-pass">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px;">
+        <p class="modal-instruction" style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">
+          Update your login password. Next time you sign in, your new password will be required.
+        </p>
+
+        <form id="form-change-own-password" class="add-staff-form">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Current Password <span style="color:#ea4335;">*</span></label>
+            <input type="password" id="input-change-current-pass" placeholder="Enter current password" required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; background: var(--panel-bg); color: var(--text-primary);">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">New Password <span style="color:#ea4335;">*</span></label>
+            <input type="password" id="input-change-new-pass" placeholder="Enter new password (min 3 chars)" minlength="3" required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; background: var(--panel-bg); color: var(--text-primary);">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Confirm New Password <span style="color:#ea4335;">*</span></label>
+            <input type="password" id="input-change-confirm-pass" placeholder="Confirm new password" minlength="3" required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; background: var(--panel-bg); color: var(--text-primary);">
+          </div>
+
+          <div id="change-pass-error" style="color: #ea4335; font-size: 13px; display: none; margin-bottom: 12px; padding: 8px 12px; background: rgba(234,67,53,0.1); border-radius: 6px; border: 1px solid rgba(234,67,53,0.2);"></div>
+          <div id="change-pass-success" style="color: #0b6e4f; font-size: 13px; display: none; margin-bottom: 12px; padding: 8px 12px; background: rgba(0,174,82,0.1); border-radius: 6px; border: 1px solid rgba(0,174,82,0.2);"></div>
+
+          <button type="submit" class="btn-primary btn-block" id="btn-submit-change-pass" style="width: 100%; padding: 12px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+            </svg>
+            <span>Update Password</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. WhatsApp + Work Assistance Tracker Modal -->
+  <div class="modal-overlay" id="modal-work-tracker" style="display: none; z-index: 9990; background: rgba(11, 20, 26, 0.82);">
+    <div class="modal-content work-tracker-modal" style="max-width: 1040px; width: 95%; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; background: var(--panel-bg);">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="background: var(--panel-header-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 14px 20px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="background: white; padding: 3px 8px; border-radius: 6px; display: flex; align-items: center; border: 1px solid var(--border-color);">
+            <img src="/images/regiustax_logo.png" alt="RegiusTax Logo" style="height: 22px; width: auto; object-fit: contain;">
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 style="margin: 0; font-size: 16px; color: var(--text-primary); font-weight: 700;">Work Assistance Tracker</h3>
+              <span class="badge-role" style="background: #25d366; color: white; font-weight: 700; font-size: 10.5px; padding: 2px 7px; border-radius: 4px;">WhatsApp + Task Bridge</span>
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;">
+              Employee ➔ WhatsApp Group ➔ HR/Coordinator ➔ Assign ➔ Track ➔ Complete ➔ Close
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button class="btn-primary" id="btn-open-new-tracker-request" style="padding: 8px 14px; font-size: 13px; font-weight: 600; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+            <span>New Request</span>
+          </button>
+          <button id="btn-admin-clear-tracker" title="Admin: Clear All Requests for Go-Live Clean Slate" style="display:none; padding: 8px 12px; font-size: 12px; font-weight: 700; border-radius: 8px; background: rgba(234,67,53,0.12); color: #c5221f; border: 1px solid rgba(234,67,53,0.3); cursor: pointer; align-items: center; gap: 5px;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M19.36 10.04l-2.5-2.5-1.41 1.41 2.5 2.5c.39.39.39 1.02 0 1.41l-4.24 4.24c-.39.39-1.02.39-1.41 0L5.3 10.1c-.39-.39-.39-1.02 0-1.41L12.37 1.62c.39-.39 1.02-.39 1.41 0l2.12 2.12 1.41-1.41-2.12-2.12a3.008 3.008 0 0 0-4.24 0L3.89 7.27a3.008 3.008 0 0 0 0 4.24l7.07 7.07c.59.59 1.36.88 2.12.88s1.54-.29 2.12-.88l4.24-4.24c1.17-1.17 1.17-3.07-.08-4.3zM2 20h20v2H2z"/>
+            </svg>
+            <span>Clear All</span>
+          </button>
+          <button class="icon-btn" id="btn-refresh-tracker" title="Refresh Requests">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            </svg>
+          </button>
+          <button class="btn-close-modal" id="btn-close-work-tracker" style="font-size: 22px; cursor: pointer;">&times;</button>
+        </div>
+      </div>
+
+      <!-- Metrics Row: All 5 cards are interactive buttons to filter requests immediately -->
+      <div class="tracker-metrics-bar" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; padding: 14px 20px; background: var(--panel-bg); border-bottom: 1px solid var(--border-color);">
+        <!-- 1. Total Requests Card / Button -->
+        <div class="tracker-metric-card active-metric-card" id="tracker-card-total" data-filter="total" role="button" tabindex="0" title="Click to show All Requests" style="padding: 10px 14px; border-radius: 8px; background: var(--panel-header-bg); border: 1px solid var(--border-color); display: flex; flex-direction: column; cursor: pointer;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 11.5px; color: var(--text-secondary); font-weight: 600; display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+              </svg>
+              Total Requests
+            </span>
+            <span class="metric-filter-pill" style="font-size: 10px; color: var(--text-muted); background: rgba(0,0,0,0.06); padding: 1px 6px; border-radius: 10px;">Show All</span>
+          </div>
+          <span id="tracker-metric-total" style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-top: 2px;">0</span>
+        </div>
+
+        <!-- 2. Urgent Card / Button -->
+        <div class="tracker-metric-card" id="tracker-card-urgent" data-filter="urgent" role="button" tabindex="0" title="Click to filter Urgent Requests" style="padding: 10px 14px; border-radius: 8px; background: rgba(234,67,53,0.08); border: 1px solid rgba(234,67,53,0.25); display: flex; flex-direction: column; cursor: pointer;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 11.5px; color: #ea4335; font-weight: 600; display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="#ea4335">
+                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+              </svg>
+              Urgent
+            </span>
+            <span class="metric-filter-pill" style="font-size: 10px; color: #ea4335; background: rgba(234,67,53,0.12); padding: 1px 6px; border-radius: 10px;">Filter</span>
+          </div>
+          <span id="tracker-metric-urgent" style="font-size: 20px; font-weight: 700; color: #ea4335; margin-top: 2px;">0</span>
+        </div>
+
+        <!-- 3. In Progress Card / Button -->
+        <div class="tracker-metric-card" id="tracker-card-inprogress" data-filter="inprogress" role="button" tabindex="0" title="Click to filter In Progress Requests" style="padding: 10px 14px; border-radius: 8px; background: rgba(242,153,74,0.08); border: 1px solid rgba(242,153,74,0.25); display: flex; flex-direction: column; cursor: pointer;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 11.5px; color: #f2994a; font-weight: 600; display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="#f2994a">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+              </svg>
+              In Progress
+            </span>
+            <span class="metric-filter-pill" style="font-size: 10px; color: #f2994a; background: rgba(242,153,74,0.12); padding: 1px 6px; border-radius: 10px;">Filter</span>
+          </div>
+          <span id="tracker-metric-inprogress" style="font-size: 20px; font-weight: 700; color: #f2994a; margin-top: 2px;">0</span>
+        </div>
+
+        <!-- 4. Completed Card / Button -->
+        <div class="tracker-metric-card" id="tracker-card-completed" data-filter="completed" role="button" tabindex="0" title="Click to filter Completed Requests" style="padding: 10px 14px; border-radius: 8px; background: rgba(0,174,82,0.08); border: 1px solid rgba(0,174,82,0.25); display: flex; flex-direction: column; cursor: pointer;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 11.5px; color: var(--rt-green-dark); font-weight: 600; display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--rt-green-dark)">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              Completed
+            </span>
+            <span class="metric-filter-pill" style="font-size: 10px; color: var(--rt-green-dark); background: rgba(0,174,82,0.12); padding: 1px 6px; border-radius: 10px;">Filter</span>
+          </div>
+          <span id="tracker-metric-completed" style="font-size: 20px; font-weight: 700; color: var(--rt-green-dark); margin-top: 2px;">0</span>
+        </div>
+
+        <!-- 5. Closed Card / Button -->
+        <div class="tracker-metric-card" id="tracker-card-closed" data-filter="closed" role="button" tabindex="0" title="Click to filter Closed Requests" style="padding: 10px 14px; border-radius: 8px; background: var(--panel-header-bg); border: 1px solid var(--border-color); display: flex; flex-direction: column; cursor: pointer;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 11.5px; color: var(--text-muted); font-weight: 600; display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--text-muted)">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+              </svg>
+              Closed
+            </span>
+            <span class="metric-filter-pill" style="font-size: 10px; color: var(--text-muted); background: rgba(0,0,0,0.06); padding: 1px 6px; border-radius: 10px;">Filter</span>
+          </div>
+          <span id="tracker-metric-closed" style="font-size: 20px; font-weight: 700; color: var(--text-muted); margin-top: 2px;">0</span>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="tracker-toolbar" style="padding: 12px 20px; background: var(--panel-header-bg); border-bottom: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
+        
+        <!-- Status Pills -->
+        <div class="tracker-status-pills" id="tracker-status-tabs" style="display: flex; gap: 4px; overflow-x: auto; max-width: 100%;">
+          <button class="pill-filter active" data-status="All">All</button>
+          <button class="pill-filter" data-status="Active">Active</button>
+          <button class="pill-filter" data-status="New">New</button>
+          <button class="pill-filter" data-status="In Progress">In Progress</button>
+          <button class="pill-filter" data-status="Waiting">Waiting</button>
+          <button class="pill-filter" data-status="Completed">Completed</button>
+          <button class="pill-filter" data-status="Closed">Closed</button>
+        </div>
+
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <!-- Team Filter -->
+          <select id="tracker-filter-team" style="padding: 6px 10px; font-size: 12.5px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--panel-bg); color: var(--text-primary);">
+            <option value="All">All Teams</option>
+            <option value="IT">IT</option>
+            <option value="HR">HR</option>
+            <option value="Admin">Admin</option>
+            <option value="Calling Team">Calling Team</option>
+            <option value="Preparation Team">Preparation Team</option>
+            <option value="Review Team">Review Team</option>
+          </select>
+
+          <!-- Priority Filter -->
+          <select id="tracker-filter-priority" style="padding: 6px 10px; font-size: 12.5px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--panel-bg); color: var(--text-primary);">
+            <option value="All">All Priorities</option>
+            <option value="Urgent">🔴 Urgent</option>
+            <option value="High">🟠 High</option>
+            <option value="Normal">🟢 Normal</option>
+          </select>
+
+          <!-- Search Box -->
+          <input type="text" id="tracker-search-input" placeholder="Search ID, title, requester..." style="padding: 6px 12px; font-size: 12.5px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--panel-bg); color: var(--text-primary); width: 180px;">
+        </div>
+      </div>
+
+      <!-- Requests Cards List Body -->
+      <div class="modal-body tracker-body" id="tracker-requests-container" style="padding: 20px; overflow-y: auto; flex: 1; min-height: 360px;">
+        <div id="tracker-requests-list" style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. New Work Assistance Request Modal -->
+  <div class="modal-overlay" id="modal-new-work-request" style="display: none; z-index: 10005; background: rgba(11, 20, 26, 0.85);">
+    <div class="modal-content" style="max-width: 520px; box-shadow: 0 16px 48px rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; background: var(--panel-bg);">
+      <div class="modal-header" style="background: var(--panel-header-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 14px 20px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--rt-emerald)">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+          </svg>
+          <div>
+            <h3 style="margin:0; font-size: 16px; font-weight:700; color:var(--text-primary);">New Work Assistance Request</h3>
+            <span style="font-size: 11px; color: var(--rt-emerald); font-weight:600;">Record Issue from WhatsApp or Employee</span>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btn-close-new-request">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px;">
+        <form id="form-new-work-request">
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Issue Title / Summary <span style="color:#ea4335;">*</span></label>
+            <input type="text" id="input-req-title" placeholder="e.g. GST Portal DSC Token Error / Form 16 query" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary);">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Requester Name <span style="color:#ea4335;">*</span></label>
+              <input type="text" id="input-req-name" placeholder="Employee or Client name" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary);">
+            </div>
+
+            <div class="form-group">
+              <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Source Channel</label>
+              <select id="select-req-source" style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary);">
+                <option value="WhatsApp Group">WhatsApp Group</option>
+                <option value="Calling Team">Calling Team</option>
+                <option value="Preparation Team">Preparation Team</option>
+                <option value="Review Team">Review Team</option>
+                <option value="Direct Request">Direct Employee</option>
+                <option value="Outside Client">Outside Client</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Assign Team <span style="color:#ea4335;">*</span></label>
+              <select id="select-req-team" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary);">
+                <option value="IT">IT</option>
+                <option value="HR">HR</option>
+                <option value="Admin">Admin</option>
+                <option value="Calling Team">Calling Team</option>
+                <option value="Preparation Team">Preparation Team</option>
+                <option value="Review Team">Review Team</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Priority <span style="color:#ea4335;">*</span></label>
+              <select id="select-req-priority" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary);">
+                <option value="Normal">Normal</option>
+                <option value="High">High</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Assign Specific Staff (Optional)</label>
+            <select id="select-req-assignee" style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary);">
+              <option value="">-- Assign at Team Level --</option>
+              <!-- Populated from users list -->
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Issue Details / Description</label>
+            <textarea id="textarea-req-desc" rows="3" placeholder="Provide context, error messages, client PAN, or relevant details..." style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary); resize: vertical;"></textarea>
+          </div>
+
+          <div id="new-req-error" style="color: #ea4335; font-size: 12.5px; display: none; margin-bottom: 12px; padding: 8px 12px; background: rgba(234,67,53,0.1); border-radius: 6px; border: 1px solid rgba(234,67,53,0.2);"></div>
+
+          <button type="submit" class="btn-primary btn-block" style="width: 100%; padding: 11px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+            </svg>
+            <span>Create Request & Generate WA-ID</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Close Work Assistance Request Modal -->
+  <div class="modal-overlay" id="modal-close-work-request" style="display: none; z-index: 10010; background: rgba(11, 20, 26, 0.85);">
+    <div class="modal-content" style="max-width: 460px; box-shadow: 0 16px 48px rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; background: var(--panel-bg);">
+      <div class="modal-header" style="background: var(--panel-header-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 14px 20px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--rt-emerald)">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+          </svg>
+          <div>
+            <h3 style="margin:0; font-size: 16px; font-weight:700; color:var(--text-primary);">Close Assistance Request</h3>
+            <span id="close-req-badge" style="font-size: 11px; color: var(--rt-emerald); font-weight:600;">WA-001</span>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btn-cancel-close-req">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px;">
+        <form id="form-close-work-request">
+          <input type="hidden" id="close-req-id">
+          
+          <div style="margin-bottom: 14px; padding: 10px 12px; background: var(--panel-header-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+            <div id="close-req-title-display" style="font-weight: 600; font-size: 13.5px; color: var(--text-primary); margin-bottom: 4px;">Request Title</div>
+            <div id="close-req-meta-display" style="font-size: 11.5px; color: var(--text-secondary);">Requester & Team</div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Resolution Notes <span style="color:#ea4335;">*</span></label>
+            <textarea id="close-req-notes" rows="3" required placeholder="Explain how the issue was resolved..." style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13.5px; background: var(--panel-bg); color: var(--text-primary); resize: vertical;"></textarea>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="font-size: 12.5px; font-weight: 600; display: block; margin-bottom: 5px;">Resolved & Closed By</label>
+            <input type="text" id="close-req-by-name" readonly style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; background: var(--panel-header-bg); color: var(--text-secondary);">
+          </div>
+
+          <button type="submit" class="btn-primary btn-block" style="width: 100%; padding: 11px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; background: #00ae52; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>Complete & Close Request</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Backup & Data Protection Manager Modal -->
+  <div class="modal-overlay" id="modal-backup-manager" style="display: none; z-index: 10015; background: rgba(11, 20, 26, 0.85);">
+    <div class="modal-content" style="max-width: 640px; box-shadow: 0 16px 48px rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; background: var(--panel-bg);">
+      <div class="modal-header" style="background: var(--panel-header-bg); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 14px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--rt-emerald)">
+            <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+          </svg>
+          <div>
+            <h3 style="margin:0; font-size: 16px; font-weight:700; color:var(--text-primary);">Backup & Data Protection</h3>
+            <span style="font-size: 11.5px; color: var(--rt-emerald); font-weight:600;">Daily 12:00 PM Auto-Backup • Laptop Shutdown Protection</span>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btn-close-backup-manager" style="font-size: 22px; cursor: pointer;">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px; max-height: 75vh; overflow-y: auto;">
+        
+        <!-- Status Card: Daily Schedule & Next Run -->
+        <div style="background: var(--panel-header-bg); border: 1px solid var(--border-color); border-left: 4px solid var(--rt-emerald); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--rt-emerald)">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+              </svg>
+              <strong>Daily Auto-Backup Schedule</strong>
+            </div>
+            <span style="background: rgba(0, 168, 132, 0.15); color: var(--rt-emerald); font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(0, 168, 132, 0.3); display:inline-flex; align-items:center; gap:4px;">
+              <span class="online-dot" style="position:static; width:6px; height:6px;"></span> ACTIVE (12:00 PM Daily)
+            </span>
+          </div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.5;">
+            Every day at <strong>12:00 PM (Noon)</strong>, RegiusTax automatically flushes the SQLite database and exports a complete timestamped <code>.zip</code> snapshot including all chats, files, and tracker requests.
+          </div>
+          <div style="margin-top: 10px; font-size: 12px; color: var(--text-primary); background: var(--panel-bg); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <span style="display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--text-muted)">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+              </svg>
+              Next Scheduled Backup: <strong id="backup-stat-next-run">Calculating...</strong>
+            </span>
+            <span id="backup-stat-countdown" style="color: var(--rt-emerald); font-weight: 600;">--</span>
+          </div>
+        </div>
+
+        <!-- Last Backup Information -->
+        <div style="background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px;">
+          <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="var(--rt-indigo)">
+              <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/>
+            </svg>
+            <span>Most Recent Backup Snapshot</span>
+          </div>
+          <div id="backup-latest-info" style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;">
+            Loading latest backup details...
+          </div>
+        </div>
+
+        <!-- 1-Click Action Buttons -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+          <button type="button" class="btn-primary" id="btn-trigger-backup-now" style="padding: 10px 14px; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+            </svg>
+            <span>Take Backup Now</span>
+          </button>
+          <button type="button" class="btn-secondary" id="btn-download-latest-backup" style="padding: 10px 14px; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            <span>Download Backup (.zip)</span>
+          </button>
+        </div>
+
+        <!-- Admin Go-Live Clean Slate (Only visible to Admin) -->
+        <div id="admin-go-live-section" style="background: rgba(234, 67, 53, 0.06); border: 1px dashed rgba(234, 67, 53, 0.35); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: #c5221f; display: flex; align-items: center; gap: 6px;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="#c5221f">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+              </svg>
+              <span>Go-Live: Clean Slate Reset</span>
+            </div>
+            <span style="font-size: 11px; background: rgba(234, 67, 53, 0.12); color: #c5221f; padding: 2px 7px; border-radius: 10px; font-weight: 700;">Admin Only</span>
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.4;">
+            Wipes test chat messages and test work tracker requests to provide a 100% clean production environment. Channels, staff logins, passwords, and settings remain untouched.
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btn-admin-clear-all-msgs" style="background: #c5221f; color: white; border: none; padding: 7px 12px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="white">
+                <path d="M19.36 10.04l-2.5-2.5-1.41 1.41 2.5 2.5c.39.39.39 1.02 0 1.41l-4.24 4.24c-.39.39-1.02.39-1.41 0L5.3 10.1c-.39-.39-.39-1.02 0-1.41L12.37 1.62c.39-.39 1.02-.39 1.41 0l2.12 2.12 1.41-1.41-2.12-2.12a3.008 3.008 0 0 0-4.24 0L3.89 7.27a3.008 3.008 0 0 0 0 4.24l7.07 7.07c.59.59 1.36.88 2.12.88s1.54-.29 2.12-.88l4.24-4.24c1.17-1.17 1.17-3.07-.08-4.3zM2 20h20v2H2z"/>
+              </svg>
+              <span>Clear All Messages</span>
+            </button>
+            <button type="button" id="btn-admin-clear-all-requests" style="background: rgba(234,67,53,0.12); color: #c5221f; border: 1px solid rgba(234,67,53,0.35); padding: 7px 12px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="#c5221f">
+                <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+              </svg>
+              <span>Clear Tracker Requests</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Laptop Shutdown & Sync Guide -->
+        <div style="background: rgba(43, 89, 255, 0.06); border: 1px solid rgba(43, 89, 255, 0.25); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px;">
+          <div style="font-size: 13px; font-weight: 700; color: var(--rt-indigo); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="var(--rt-indigo)">
+              <path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+            </svg>
+            <span>Laptop Shutdown & Sync Protection</span>
+          </div>
+          <ul style="margin: 0; padding-left: 18px; font-size: 12px; color: var(--text-primary); line-height: 1.6;">
+            <li><strong>Before Shutdown:</strong> Click <em>"Take Backup Now"</em> or double-click <code>take_backup.bat</code> on your laptop.</li>
+            <li><strong>After Reboot:</strong> Simply double-click <code>start_rtwhatsup.bat</code>. All your data is instantly preserved.</li>
+            <li><strong>Sync to Cloud/USB:</strong> Run <code>sync_to_usb_or_cloud.bat</code> to mirror the <code>backups\</code> folder to Google Drive, OneDrive, or a USB pen drive.</li>
+            <li><strong>Missed Backup Protection:</strong> If your laptop was off at 12:00 PM, the system automatically runs a catch-up backup as soon as it starts!</li>
+          </ul>
+        </div>
+
+        <!-- Backup History List -->
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="display:inline-flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+              </svg>
+              Available Backups
+            </span>
+            <button type="button" id="btn-refresh-backup-list" style="background: none; border: none; color: var(--rt-emerald); font-size: 11.5px; font-weight: 600; cursor: pointer; display:inline-flex; align-items:center; gap:4px;">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+              </svg>
+              Refresh
+            </button>
+          </div>
+          <div id="backup-history-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Socket.IO Client Library -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Client Scripts -->
+  <script src="/js/audio.js"></script>
+  <script src="/js/socket.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

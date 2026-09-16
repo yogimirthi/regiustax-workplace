@@ -1,0 +1,25 @@
+{
+  "name": "RegiusTax Workplace",
+  "short_name": "RegiusTax",
+  "description": "Secure office workplace collaboration, messenger, and tax work assistance tracker",
+  "start_url": "/gateway",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1e1b4b",
+  "theme_color": "#484392",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

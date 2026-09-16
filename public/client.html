@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RegiusTax Client Helpdesk | Live Chat</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/images/regiustax_logo.png">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #eef2f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .client-portal-wrapper {
+      max-width: 650px;
+      width: 100%;
+      height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      box-shadow: 0 4px 24px rgba(72,67,146,0.1);
+      position: relative;
+    }
+    .client-header {
+      background: linear-gradient(135deg, #484392 0%, #353075 100%);
+      border-bottom: 3px solid #00ae52;
+      color: white;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .client-header-brand-box {
+      background: white;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .client-header-brand-box img {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+    }
+    .client-header-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .client-header-sub {
+      font-size: 12px;
+      color: #e0dff2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .online-indicator-dot {
+      width: 8px;
+      height: 8px;
+      background: #00ae52;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .client-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background-color: #efeae2;
+      background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
+      background-size: 24px 24px;
+      position: relative;
+    }
+    /* Welcome Registration Form Card */
+    .client-form-container {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .client-form-card {
+      background: white;
+      border-radius: 14px;
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(72,67,146,0.08);
+      border: 1px solid #e1e7ec;
+      border-top: 4px solid #484392;
+    }
+    .client-form-card h2 {
+      margin: 0 0 6px 0;
+      font-size: 19px;
+      color: #484392;
+      font-weight: 700;
+    }
+    .client-form-card p {
+      margin: 0 0 18px 0;
+      font-size: 13px;
+      color: #54656f;
+    }
+    .form-group-client {
+      margin-bottom: 14px;
+    }
+    .form-group-client label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #54656f;
+      margin-bottom: 5px;
+    }
+    .form-group-client input, .form-group-client textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      border: 1px solid #d1d7db;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group-client input:focus, .form-group-client textarea:focus {
+      border-color: #484392;
+    }
+    .btn-start-chat {
+      background: #00ae52;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-start-chat:hover {
+      background: #008f43;
+    }
+    /* Active Chat Screen */
+    .client-chat-screen {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+    }
+    .client-messages-list {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .msg-client {
+      align-self: flex-end;
+      background: #e8f7ee;
+      color: #111b21;
+      padding: 8px 12px;
+      border-radius: 8px 8px 0 8px;
+      max-width: 80%;
+      font-size: 14px;
+      box-shadow: 0 1px 0.5px rgba(11,20,26,.13);
+      position: relative;
+    }
+    .msg-staff {
+      align-self: flex-start;
+      background: #ffffff;
+      color: #111b21;
+      padding: 8px 12px;
+      border-radius: 8px 8px 8px 0;
+      max-width: 80%;
+      font-size: 14px;
+      box-shadow: 0 1px 0.5px rgba(11,20,26,.13);
+      position: relative;
+    }
+    .msg-sender-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #484392;
+      margin-bottom: 2px;
+    }
+    .msg-meta {
+      font-size: 10.5px;
+      color: #667781;
+      text-align: right;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+    .client-chat-input-bar {
+      background: #f0f2f5;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid #d1d7db;
+    }
+    .client-chat-input-bar textarea {
+      flex: 1;
+      background: white;
+      border: 1px solid #d1d7db;
+      border-radius: 20px;
+      padding: 10px 16px;
+      font-size: 14px;
+      resize: none;
+      height: 20px;
+      outline: none;
+      font-family: inherit;
+    }
+    .client-chat-input-bar textarea:focus {
+      border-color: #484392;
+    }
+    .btn-client-attach {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #54656f;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .btn-client-send {
+      background: #00ae52;
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+    .btn-client-send:hover {
+      background: #008f43;
+    }
+    .client-attachment-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #e7f5ef;
+      border: 1px solid #c2e7d7;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+    .client-attachment-pill a {
+      color: #00ae52;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="client-portal-wrapper">
+    <!-- Header -->
+    <div class="client-header">
+      <div class="client-header-brand-box">
+        <img src="/images/regiustax_logo.png" alt="RegiusTax Logo">
+      </div>
+      <div style="flex:1;">
+        <div class="client-header-title">RegiusTax Helpdesk</div>
+        <div class="client-header-sub">
+          <span class="online-indicator-dot"></span>
+          <span id="client-header-status">Calling & Tax Advisory Team Online</span>
+        </div>
+      </div>
+      <button id="btn-client-reset" title="Start New Chat" style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.35); color:white; font-size:11px; padding:5px 12px; border-radius:12px; cursor:pointer; font-weight:600;">New Session</button>
+    </div>
+
+    <!-- Body -->
+    <div class="client-body">
+      <!-- Step 1: Initial Form -->
+      <div id="screen-client-form" class="client-form-container">
+        <div class="client-form-card">
+          <div style="text-align:center; margin-bottom:18px;">
+            <img src="/images/regiustax_logo.png" alt="RegiusTax" style="max-width:230px; width:75%; height:auto; margin-bottom:8px;">
+            <h2 style="margin:0 0 4px 0; font-size:19px; color:#484392; font-weight:700;">Client Tax Helpdesk</h2>
+            <p style="margin:0; font-size:13px; color:#54656f;">Direct live chat with our Calling & Tax Advisory specialists</p>
+          </div>
+          <form id="form-client-init">
+            <div class="form-group-client">
+              <label>Your Full Name *</label>
+              <input type="text" id="client-input-name" placeholder="e.g. Rajesh Kumar" required>
+            </div>
+            <div class="form-group-client">
+              <label>Mobile Phone Number *</label>
+              <input type="tel" id="client-input-phone" placeholder="e.g. 9876543210" required>
+            </div>
+            <div class="form-group-client">
+              <label>Email Address (Optional)</label>
+              <input type="email" id="client-input-email" placeholder="e.g. rajesh@example.com">
+            </div>
+            <div class="form-group-client">
+              <label>Initial Message / Tax Query</label>
+              <textarea id="client-input-msg" rows="2" placeholder="e.g. Need assistance with ITR filing or GST audit..."></textarea>
+            </div>
+            <button type="submit" class="btn-start-chat" style="display:flex; align-items:center; justify-content:center; gap:8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg><span>Start Live Chat</span></button>
+            <button type="button" id="btn-client-quick-start" style="width:100%; margin-top:10px; padding:10px; background:#f4f3fb; border:1px solid #484392; color:#484392; border-radius:10px; font-size:13.5px; font-weight:700; cursor:pointer; transition:all 0.2s ease; display:flex; align-items:center; justify-content:center; gap:6px;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg><span>Direct Start (Instant Live Chat)</span></button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Step 2: Live Chat Screen -->
+      <div id="screen-client-chat" class="client-chat-screen">
+        <div id="client-messages" class="client-messages-list"></div>
+
+        <div id="client-typing-indicator" style="display:none; padding:4px 18px; font-size:11.5px; color:#54656f; font-style:italic;">
+          Calling Team is typing...
+        </div>
+
+        <div class="client-chat-input-bar">
+          <button class="btn-client-attach" id="btn-client-file" title="Upload Document or Photo" aria-label="Attach File" style="display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5V6H9v9.5a3.5 3.5 0 0 0 7 0V5a4.5 4.5 0 0 0-9 0v12.5c0 3.31 2.69 6 6 6s6-2.69 6-6V6h-2z"/></svg>
+          </button>
+          <input type="file" id="client-file-input" style="display:none;">
+          <textarea id="client-text-input" placeholder="Type your message to RegiusTax..." rows="1"></textarea>
+          <button class="btn-client-send" id="btn-client-send-msg" title="Send Message" aria-label="Send">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+</body>
+</html>

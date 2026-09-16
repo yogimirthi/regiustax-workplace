@@ -1,0 +1,19 @@
+﻿services:
+  - type: web
+    name: regiustax-workplace
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: UPLOADS_DIR
+        value: /var/data/uploads
+    disk:
+      name: regiustax-data
+      mountPath: /var/data
+      sizeGB: 1
