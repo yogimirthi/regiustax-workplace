@@ -429,13 +429,33 @@ body.theme-dark .icon-btn:hover {
 
 /* Network Intranet Notice Banner */
 .network-badge-banner {
-  background: linear-gradient(135deg, #484392 0%, #353075 100%);
+  background: linear-gradient(135deg, #3f3987 0%, #484392 50%, #302b70 100%);
   border-bottom: 2px solid #00ae52;
   color: white;
-  padding: 10px 16px;
+  padding: 7px 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.banner-logo-box {
+  background: #ffffff;
+  padding: 3px 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  flex-shrink: 0;
+}
+
+.banner-logo-box img {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
 }
 
 .badge-icon {
@@ -443,107 +463,153 @@ body.theme-dark .icon-btn:hover {
 }
 
 .badge-text {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .badge-text span {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+  line-height: 1.25;
 }
 
 .badge-text small {
-  font-size: 11px;
-  opacity: 0.9;
-  font-family: monospace;
+  font-size: 10px;
+  font-family: 'Consolas', monospace;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  margin-top: 1px;
 }
 
-.badge-action-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: white;
-  padding: 4px 10px;
+.banner-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Unified Modern Frosted-Glass Pill Buttons */
+.banner-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 9px;
   font-size: 11px;
   font-weight: 600;
-  border-radius: 12px;
+  letter-spacing: 0.2px;
+  border-radius: 13px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 }
 
-.badge-action-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
+.banner-action-pill:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
 }
 
-.badge-action-btn svg,
-.badge-portal-switch svg,
-.portal-header-pill svg {
+.banner-action-pill:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.banner-action-pill svg {
   width: 13px;
   height: 13px;
-  fill: currentColor;
   flex-shrink: 0;
   display: inline-block;
   vertical-align: middle;
 }
 
-/* Portal Badges & Switcher */
-.portal-header-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  padding: 3px 8px;
+/* Individual Pill Accent Styling */
+.banner-action-pill.pill-tracker {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.banner-action-pill.pill-tracker svg {
+  color: #38bdf8; /* Vibrant Sky Blue icon */
+  fill: currentColor;
+}
+
+.banner-action-pill.pill-tracker:hover svg {
+  color: #7dd3fc;
+}
+
+.banner-action-pill.pill-backup {
+  background: rgba(0, 174, 82, 0.22);
+  border-color: rgba(0, 174, 82, 0.55);
+}
+
+.banner-action-pill.pill-backup svg {
+  color: #4ade80; /* Emerald Green icon */
+  fill: currentColor;
+}
+
+.banner-action-pill.pill-backup:hover {
+  background: rgba(0, 174, 82, 0.38);
+  border-color: #00ae52;
+}
+
+.banner-action-pill.pill-portals {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+.banner-action-pill.pill-portals svg {
+  color: #fbbf24; /* Warm Gold / Amber icon */
+  fill: currentColor;
+}
+
+.banner-action-pill.pill-portals:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.banner-action-pill.pill-copy {
+  padding: 0 7px;
   border-radius: 6px;
-  white-space: nowrap;
 }
 
-.portal-pill-admin {
-  background: var(--rt-indigo-light);
-  color: var(--rt-indigo);
-  border: 1px solid rgba(72, 67, 146, 0.25);
+.banner-action-pill.pill-copy svg {
+  color: rgba(255, 255, 255, 0.9);
+  fill: currentColor;
 }
 
-.portal-pill-emp {
-  background: var(--rt-emerald-light);
-  color: var(--rt-emerald-dark);
-  border: 1px solid rgba(0, 174, 82, 0.25);
-}
-
-body.theme-dark .portal-pill-admin {
-  background: rgba(72, 67, 146, 0.35);
-  color: #a8a3f8;
-  border-color: rgba(72, 67, 146, 0.5);
-}
-
-body.theme-dark .portal-pill-emp {
-  background: rgba(0, 174, 82, 0.25);
-  color: #5ce69a;
-  border-color: rgba(0, 174, 82, 0.4);
+/* Legacy Fallbacks */
+.badge-action-btn {
+  /* Inherits from banner-action-pill */
 }
 
 .badge-portal-switch {
-  text-decoration: none;
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  background: var(--panel-header-bg);
-  border: 1px solid var(--border-color);
-  padding: 3px 9px;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: all 0.2s ease;
-}
-
-.badge-portal-switch:hover {
-  background: var(--rt-indigo);
-  color: white;
-  border-color: var(--rt-indigo);
+  /* Inherits from banner-action-pill */
 }
 
 /* Search Box & Tabs */
