@@ -98,8 +98,8 @@ async function handleNewTunnelUrl(url) {
   console.log('🎉 ACTIVE PUBLIC HTTPS LINK IS LIVE!');
   console.log('====================================================');
   console.log(`\n👉 Gateway:   ${url}/gateway`);
-  console.log(`👉 Employee:  ${url}/employee  (Password: emp123)`);
-  console.log(`👉 Admin:     ${url}/admin     (Password: admin123)\n`);
+  console.log(`👉 Employee:  ${url}/employee  (Password: RegiusStaff@2026)`);
+  console.log(`👉 Admin:     ${url}/admin     (Password: RegiusAdmin@2026)\n`);
   console.log('====================================================');
 
   try {
@@ -139,11 +139,11 @@ ${url}/gateway
 
 👉 Direct Employee Portal:
 ${url}/employee
-(Default Password: emp123)
+(Default Password: RegiusStaff@2026)
 
 👉 Direct Admin Console:
 ${url}/admin
-(Default Password: admin123)
+(Default Password: RegiusAdmin@2026)
 
 👉 Outside Client Helpdesk:
 ${url}/client

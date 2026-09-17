@@ -51,6 +51,10 @@ class AppController {
       this.updateServerInfoUI();
       this.users = state.users;
       this.departments = state.departments || [];
+      if (state.channels && state.channels.length > 0) {
+        this.channels = state.channels;
+        this.renderChatList();
+      }
     } else {
       await this.fetchServerInfo();
       await this.fetchUsers();
@@ -62,11 +66,21 @@ class AppController {
 
     const isAuthenticated = this.initCurrentUser();
     if (isAuthenticated) {
-      await this.loadChannels();
+      if (!this.channels || this.channels.length === 0) {
+        await this.loadChannels();
+      }
       if (this.channels && this.channels.length > 0 && window.innerWidth > 900) {
         const urlParams = new URLSearchParams(window.location.search);
         if (!urlParams.has('welcome')) {
-          this.selectChannel(this.channels[0].id);
+          const firstChan = this.channels[0];
+          const state = window.__PRELOADED_STATE__;
+          if (state && state.initialMessages && state.channels && state.channels[0]?.id === firstChan.id) {
+            this.activeChannel = firstChan;
+            this.messages = state.initialMessages;
+            this.renderActiveChannelUI();
+          } else {
+            this.selectChannel(firstChan.id);
+          }
         }
       }
     } else {
@@ -254,7 +268,7 @@ class AppController {
       if (titleEl) titleEl.innerText = 'RegiusTax Admin Portal Sign In';
       if (badgeEl) badgeEl.innerHTML = '<span style="display:inline-flex; align-items:center; gap:5px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg> Administrator Authentication</span>';
       if (hintEl) {
-        hintEl.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg> <strong>Admin Account:</strong></span> <code>admin@regiustax.com</code><br>Default initial password: <code>admin123</code>`;
+        hintEl.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg> <strong>Admin Account:</strong></span> <code>admin@regiustax.com</code><br>Default initial password: <code>RegiusAdmin@2026</code>`;
       }
       if (emailInput) {
         emailInput.value = prefillEmail || 'admin@regiustax.com';
@@ -263,7 +277,7 @@ class AppController {
       if (titleEl) titleEl.innerText = 'RegiusTax Employee Portal Sign In';
       if (badgeEl) badgeEl.innerHTML = '<span style="display:inline-flex; align-items:center; gap:5px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg> Employee Workspace</span>';
       if (hintEl) {
-        hintEl.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg> <strong>Employees:</strong></span> e.g. <code>priya@regiustax.com</code><br>Default initial password: <code>emp123</code> (or password created by Admin)`;
+        hintEl.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg> <strong>Employees:</strong></span> e.g. <code>calling.emp1@regiustax.com</code><br>Default initial password: <code>RegiusStaff@2026</code> (or password created by Admin)`;
       }
       if (emailInput) {
         emailInput.value = prefillEmail || '';

@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
@@ -64,12 +65,24 @@ const upload = multer({
   limits: { fileSize: 100 * 1024 * 1024 } // 100MB limit for tax documents and scans
 });
 
-// Middleware
+// Compression & Performance Middleware
+app.use(compression({
+  threshold: 1024,
+  level: 6
+}));
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'), { index: false }));
-app.use('/uploads', express.static(UPLOADS_DIR));
+app.use(express.static(path.join(__dirname, 'public'), { 
+  index: false,
+  maxAge: '1d',
+  etag: true
+}));
+app.use('/uploads', express.static(UPLOADS_DIR, {
+  maxAge: '7d',
+  etag: true
+}));
 
 // Auto-detect local network IPv4 address
 function getLocalIpAddress() {
@@ -104,11 +117,30 @@ function isUserOnline(userId) {
 
 // REST API Endpoints
 
+// In-memory HTML template caches (eliminates disk I/O latency on repeat requests)
+let cachedIndexHtml = null;
+function getIndexTemplate() {
+  if (!cachedIndexHtml || process.env.NODE_ENV === 'development') {
+    cachedIndexHtml = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8');
+  }
+  return cachedIndexHtml;
+}
+
+let cachedGatewayHtml = null;
+function getGatewayTemplate() {
+  if (!cachedGatewayHtml || process.env.NODE_ENV === 'development') {
+    const gatewayPath = path.join(__dirname, 'public', 'gateway.html');
+    if (fs.existsSync(gatewayPath)) {
+      cachedGatewayHtml = fs.readFileSync(gatewayPath, 'utf8');
+    }
+  }
+  return cachedGatewayHtml;
+}
+
 // Helper to serve the main app with role-specific preloaded state
 async function serveAppWithState(req, res, portalMode = 'admin') {
   try {
-    const htmlPath = path.join(__dirname, 'public', 'index.html');
-    let html = fs.readFileSync(htmlPath, 'utf8');
+    let html = getIndexTemplate();
 
     const users = await db.getUsers();
     const departments = await db.getDepartments();
@@ -163,11 +195,10 @@ async function serveAppWithState(req, res, portalMode = 'admin') {
 // 1. Root route & /portal & /gateway: Serve the Workplace Portals Gateway
 app.get(['/', '/portal', '/gateway'], (req, res) => {
   try {
-    const gatewayPath = path.join(__dirname, 'public', 'gateway.html');
-    if (!fs.existsSync(gatewayPath)) {
+    let html = getGatewayTemplate();
+    if (!html) {
       return serveAppWithState(req, res, 'admin');
     }
-    let html = fs.readFileSync(gatewayPath, 'utf8');
     const gatewayState = {
       networkUrl,
       localIp,
@@ -1114,6 +1145,20 @@ server.listen(PORT, '0.0.0.0', async () => {
   backupService.initDailyScheduler((manifest) => {
     io.emit('backup:completed', manifest);
   });
+
+  // 24/7 Keep-Alive Uptime Heartbeat: prevents cloud container idle spin-down delay
+  const KEEP_ALIVE_URL = process.env.RENDER_EXTERNAL_URL || 'https://regiustax-workplace-app.onrender.com';
+  console.log(`[Keep-Alive] 24/7 self-ping initialized for: ${KEEP_ALIVE_URL}`);
+  setInterval(() => {
+    try {
+      fetch(`${KEEP_ALIVE_URL}/api/health`)
+        .then(r => r.json())
+        .then(data => {
+          // Heartbeat active
+        })
+        .catch(() => {});
+    } catch (e) {}
+  }, 8 * 60 * 1000); // Ping every 8 minutes
 
   console.log('====================================================');
   console.log('       RTwhat\'s up - RegiusTax Local Messenger      ');

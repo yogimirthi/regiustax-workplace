@@ -29,11 +29,14 @@ if (!fs.existsSync(DB_PATH)) {
 
 const db = new sqlite3.Database(DB_PATH);
 
-// Configure SQLite for high concurrency, zero deadlocks, and WAL mode
+// Configure SQLite for high concurrency, zero deadlocks, and maximum RAM performance
 db.serialize(() => {
   db.run('PRAGMA journal_mode = WAL;');
   db.run('PRAGMA busy_timeout = 5000;');
   db.run('PRAGMA synchronous = NORMAL;');
+  db.run('PRAGMA cache_size = 10000;');
+  db.run('PRAGMA temp_store = MEMORY;');
+  db.run('PRAGMA mmap_size = 268435456;');
 });
 
 // Helper for running queries with promises
@@ -92,11 +95,11 @@ async function initDb() {
     // Column already exists
   }
 
-  // Set default password for admin (admin123) if unset
-  await run(`UPDATE users SET password = 'admin123' WHERE role = 'Admin' AND (password IS NULL OR password = '')`);
+  // Set default password for admin (RegiusAdmin@2026) if unset or legacy
+  await run(`UPDATE users SET password = 'RegiusAdmin@2026' WHERE role = 'Admin' AND (password IS NULL OR password = '' OR password = 'admin123')`);
 
-  // Set default password for employees (emp123) if unset
-  await run(`UPDATE users SET password = 'emp123' WHERE role = 'Employee' AND (password IS NULL OR password = '')`);
+  // Set default password for employees (RegiusStaff@2026) if unset or legacy
+  await run(`UPDATE users SET password = 'RegiusStaff@2026' WHERE role = 'Employee' AND (password IS NULL OR password = '' OR password = 'emp123')`);
 
   // Channels table (Groups and 1-on-1 Direct Messages)
   await run(`CREATE TABLE IF NOT EXISTS channels (
@@ -495,7 +498,7 @@ async function registerClientUserAndChannel({ name, phone, email = '' }) {
 // Admin adds an employee by email with department assignment & initial password
 async function addEmployee({ email, full_name, department = 'Calling Team', password, adminId }) {
   const cleanEmail = email.trim().toLowerCase();
-  const cleanPassword = (password && password.trim()) ? password.trim() : 'emp123';
+  const cleanPassword = (password && password.trim()) ? password.trim() : 'RegiusStaff@2026';
   
   // Verify that requester is Admin
   const admin = await getUserById(adminId);
