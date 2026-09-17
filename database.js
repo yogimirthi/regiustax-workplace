@@ -248,59 +248,114 @@ async function initDb() {
 }
 
 async function seedData() {
-  const userCount = await get('SELECT COUNT(*) as count FROM users');
-  if (userCount.count === 0) {
-    console.log('Seeding initial RegiusTax Admin and channels...');
-
-    // Default Admin Account
-    const defaultAdmin = {
+  const preSeededUsers = [
+    {
       id: 'admin',
       email: 'admin@regiustax.com',
       full_name: 'Admin',
       role: 'Admin',
+      department: 'Calling Team',
+      password: 'RegiusAdmin@2026',
       avatar: '🛡️',
       status: 'System Administrator'
-    };
+    },
+    {
+      id: 'emp-1788889493937',
+      email: 'calling.emp1@regiustax.com',
+      full_name: 'Calling Agent 1',
+      role: 'Employee',
+      department: 'Calling Team',
+      password: 'RegiusStaff@2026',
+      avatar: '👤',
+      status: 'Available'
+    },
+    {
+      id: 'emp-1788889535242',
+      email: 'review.emp1@regiustax.com',
+      full_name: 'Review Officer 1',
+      role: 'Employee',
+      department: 'Review Team',
+      password: 'RegiusStaff@2026',
+      avatar: '👤',
+      status: 'Available'
+    },
+    {
+      id: 'emp-1788890027551',
+      email: 'yugandhar.mirthi@gmail.com',
+      full_name: 'Employee',
+      role: 'Employee',
+      department: 'Calling Team',
+      password: 'RegiusStaff@2026',
+      avatar: '👤',
+      status: 'Available'
+    }
+  ];
 
+  for (const u of preSeededUsers) {
+    const existing = await get('SELECT * FROM users WHERE LOWER(email) = LOWER(?)', [u.email]);
+    if (!existing) {
+      await run(
+        `INSERT INTO users (id, email, full_name, role, department, password, avatar, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [u.id, u.email, u.full_name, u.role, u.department, u.password, u.avatar, u.status]
+      );
+    } else {
+      // Ensure password is up to date
+      await run('UPDATE users SET password = ? WHERE id = ?', [u.password, existing.id]);
+    }
+  }
+
+  // Ensure default channels exist
+  const defaultChannels = [
+    {
+      id: 'chan-general',
+      name: 'General Announcements',
+      description: 'Official RegiusTax company announcements and updates',
+      is_direct: 0,
+      created_by: 'admin'
+    },
+    {
+      id: 'chan-calling',
+      name: 'Calling Team',
+      description: 'Client outreach, calling queries, document collection & follow-ups',
+      is_direct: 0,
+      created_by: 'admin'
+    },
+    {
+      id: 'chan-prep',
+      name: 'Preparation Team',
+      description: 'Tax return preparation, computational sheets & schedules',
+      is_direct: 0,
+      created_by: 'admin'
+    },
+    {
+      id: 'chan-review',
+      name: 'Review Team',
+      description: 'Quality audit, review check, partner verification & filing sign-offs',
+      is_direct: 0,
+      created_by: 'admin'
+    }
+  ];
+
+  for (const c of defaultChannels) {
     await run(
-      `INSERT INTO users (id, email, full_name, role, avatar, status)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [defaultAdmin.id, defaultAdmin.email, defaultAdmin.full_name, defaultAdmin.role, defaultAdmin.avatar, defaultAdmin.status]
+      `INSERT OR IGNORE INTO channels (id, name, description, is_direct, created_by)
+       VALUES (?, ?, ?, ?, ?)`,
+      [c.id, c.name, c.description, c.is_direct, c.created_by]
     );
 
-    // Default group channels
-    const defaultChannels = [
-      {
-        id: 'chan-general',
-        name: 'General Announcements',
-        description: 'Official RegiusTax company announcements and updates',
-        is_direct: 0,
-        created_by: 'admin'
-      },
-      {
-        id: 'chan-team',
-        name: 'Team Discussion',
-        description: 'Internal team collaboration and work queries',
-        is_direct: 0,
-        created_by: 'admin'
-      }
-    ];
-
-    for (const c of defaultChannels) {
+    // Add all pre-seeded users to default channels
+    for (const u of preSeededUsers) {
       await run(
-        `INSERT INTO channels (id, name, description, is_direct, created_by)
-         VALUES (?, ?, ?, ?, ?)`,
-        [c.id, c.name, c.description, c.is_direct, c.created_by]
-      );
-
-      // Add admin to default channels
-      await run(
-        `INSERT INTO channel_members (channel_id, user_id) VALUES (?, ?)`,
-        [c.id, defaultAdmin.id]
+        `INSERT OR IGNORE INTO channel_members (channel_id, user_id) VALUES (?, ?)`,
+        [c.id, u.id]
       );
     }
+  }
 
-    // Seed welcoming message from Admin
+  // Seed welcoming message from Admin if message table empty
+  const msgCount = await get('SELECT COUNT(*) as count FROM messages');
+  if (msgCount.count === 0) {
     await run(
       `INSERT INTO messages (id, channel_id, sender_id, text, type, created_at)
        VALUES (?, ?, ?, ?, ?, ?)`,
@@ -308,14 +363,14 @@ async function seedData() {
         'msg-init-1',
         'chan-general',
         'admin',
-        'Welcome to **RTwhat\'s up** for RegiusTax! 🛡️ This system has two levels: **Admin** and **Employee**. Admin can add employees by email to grant them access to this network.',
+        'Welcome to **RTwhat\'s up** for RegiusTax! 🛡️ This system has two levels: **Admin** and **Employee**. All departments and staff channels are active 24/7.',
         'text',
         new Date().toISOString()
       ]
     );
-
-    console.log('RegiusTax clean Admin setup completed successfully!');
   }
+
+  console.log('RegiusTax clean Admin and Employee setup synchronized successfully!');
 }
 
 // Database helper functions
